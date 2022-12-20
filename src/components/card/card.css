@@ -1,0 +1,30 @@
+@font-face {
+  font-family: "Inter UI";
+  src: local("Inter UI"), local("Inter-UI"),
+    url("../../fonts/Inter-Regular.ttf") format("truetype");
+}
+
+.card {
+  width: 480px;
+}
+
+.card__title {
+  font-family: "Inter UI";
+  font-size: 20px;
+  line-height: 28px;
+  color: #000000;
+}
+
+.card__digital-rate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgba(233, 209, 0, 1);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+
+  font-family: "Inter UI";
+  font-size: 12px;
+  line-height: 22px;
+}
