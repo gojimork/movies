@@ -11,7 +11,7 @@ const Title = () => {
 const Body = () => {
   return (
     <Space className="card__body" direction="vertical" size="small">
-      <Space size={100}>
+      <Space size={110}>
         <Title>The way back</Title>
         <span className="card__digital-rate">6.6</span>
       </Space>
