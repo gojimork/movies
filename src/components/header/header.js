@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, Input, Space } from "antd";
+import "./header.css";
 const items = [
   {
     label: "Search",
@@ -17,14 +18,14 @@ const Header = () => {
     setCurrent(e.key);
   };
   return (
-    <Space direction="vertical">
+    <Space className="header" direction="vertical" align="center" size="middle">
       <Menu
         onClick={onClick}
         selectedKeys={[current]}
         mode="horizontal"
         items={items}
       />
-      <Input placeholder="Type to search..." />
+      <Input className="header__search-input" placeholder="Type to search..." />
     </Space>
   );
 };

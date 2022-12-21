@@ -1,14 +1,15 @@
-import { Space } from "antd";
+import { Pagination } from "antd";
 import Header from "../header";
 import CardList from "../card-list";
 import "./app.css";
 
 const App = () => {
   return (
-    <Space direction="vertical">
+    <div className="app-wrap">
       <Header />
       <CardList />
-    </Space>
+      <Pagination defaultCurrent={1} total={50} />
+    </div>
   );
 };
 export default App;
