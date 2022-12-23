@@ -1,6 +1,5 @@
 import { Component } from "react";
 import Card from "../card";
-import { Space } from "antd";
 import "./card-list.css";
 
 class MovieApiService {
@@ -41,15 +40,19 @@ export default class CardList extends Component {
 
   render() {
     const { movies } = this.state;
+    console.log(movies[0]);
     const cards = movies.map((movie) => (
       <li key={movie.id}>
-        <Card />
+        <Card
+          title={movie.original_title}
+          poster={movie.poster_path}
+          vote={movie.vote_average}
+          release={movie.release_date}
+          description={movie.overview}
+        />
       </li>
     ));
-    return (
-      <Space wrap size={36}>
-        <ul>{cards}</ul>
-      </Space>
-    );
+
+    return <ul className="card-list">{cards}</ul>;
   }
 }
