@@ -5,16 +5,20 @@ import "./card.css";
 const { Text } = Typography;
 
 const Card = ({ title, poster, vote, release, description }) => {
-  console.log({ release });
   return (
     <Space className="card" size={20}>
-      <Image width={183} src={`https://image.tmdb.org/t/p/w200/${poster}`} />
+      <Image
+        width={183}
+        src={poster ? `https://image.tmdb.org/t/p/w200/${poster}` : ""}
+      />
       <Space className="card__body" direction="vertical" size="small">
         <div className="card__title-wrap">
           <h5 className="card__title">{title}</h5>
           <span className="card__digital-rate">{vote}</span>
         </div>
-        <Text type="secondary">{format(new Date(release), "d MMMM, y")}</Text>
+        <Text type="secondary">
+          {release ? format(new Date(release), "d MMMM, y") : ""}
+        </Text>
         <Space>
           <Button size="small">Action</Button>
           <Button size="small">Drama</Button>

@@ -40,7 +40,6 @@ export default class CardList extends Component {
 
   render() {
     const { movies } = this.state;
-    console.log(movies[0]);
     const cards = movies.map((movie) => (
       <li key={movie.id}>
         <Card
