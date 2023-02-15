@@ -9,7 +9,7 @@ const Card = ({ title, poster, vote, release, description }) => {
     <Space className="card" size={20}>
       <Image
         width={183}
-        src={poster ? `https://image.tmdb.org/t/p/w200/${poster}` : ""}
+        src={poster ? `https://image.tmdb.org/t/p/w200/${poster}` : null}
       />
       <Space className="card__body" direction="vertical" size="small">
         <div className="card__title-wrap">
@@ -17,7 +17,7 @@ const Card = ({ title, poster, vote, release, description }) => {
           <span className="card__digital-rate">{vote}</span>
         </div>
         <Text type="secondary">
-          {release ? format(new Date(release), "d MMMM, y") : ""}
+          {release ? format(new Date(release), "d MMMM, y") : null}
         </Text>
         <Space>
           <Button size="small">Action</Button>

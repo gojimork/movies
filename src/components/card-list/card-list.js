@@ -1,30 +1,15 @@
+import React from "react";
 import { Component } from "react";
 import Card from "../card";
+import { Spin } from "antd";
+import MovieApiService from "../../services";
 import "./card-list.css";
-
-class MovieApiService {
-  async getResource(quary) {
-    const res = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=c2a695c37503e6cbe4fa21a2c769151b&query=${quary}&page=1`
-    );
-    if (!res.ok) {
-      throw new Error(
-        `Could not fetch quary: ${quary}, received ${res.status}`
-      );
-    }
-    return await res.json();
-  }
-
-  async getMovies(quary) {
-    const res = await this.getResource(quary);
-    return await res.results;
-  }
-}
 
 export default class CardList extends Component {
   movieApiService = new MovieApiService();
   state = {
     movies: [],
+    loading: true,
   };
 
   constructor() {
@@ -35,11 +20,12 @@ export default class CardList extends Component {
   updateMovies() {
     this.movieApiService
       .getMovies("return")
-      .then((movies) => this.setState({ movies }));
+      .then((movies) => this.setState({ movies, loading: false }));
   }
 
   render() {
-    const { movies } = this.state;
+    const { movies, loading } = this.state;
+    const spin = loading ? <Spin /> : null;
     const cards = movies.map((movie) => (
       <li key={movie.id}>
         <Card
@@ -51,7 +37,13 @@ export default class CardList extends Component {
         />
       </li>
     ));
+    const content = <ul className="card-list">{cards}</ul>;
 
-    return <ul className="card-list">{cards}</ul>;
+    return (
+      <React.Fragment>
+        {spin}
+        {content}
+      </React.Fragment>
+    );
   }
 }
