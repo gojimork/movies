@@ -1,4 +1,5 @@
 import { Alert, Space } from "antd";
+import { Offline, Online } from "react-detect-offline";
 
 const ErrorIndicator = ({ errorMessage }) => {
   return (
@@ -8,7 +9,22 @@ const ErrorIndicator = ({ errorMessage }) => {
         width: "100%",
       }}
     >
-      <Alert message="Error" description={errorMessage} type="error" showIcon />
+      <Online>
+        <Alert
+          message="Error"
+          description={errorMessage}
+          type="error"
+          showIcon
+        />
+      </Online>
+      <Offline>
+        <Alert
+          message="Connection Error"
+          description="Internet disconnected"
+          type="error"
+          showIcon
+        />
+      </Offline>
     </Space>
   );
 };

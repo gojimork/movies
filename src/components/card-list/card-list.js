@@ -3,6 +3,7 @@ import { Component } from "react";
 import Card from "../card";
 import ErrorIndicator from "../error-indicator";
 import { Spin } from "antd";
+
 import MovieApiService from "../../services";
 import "./card-list.css";
 
@@ -22,7 +23,7 @@ export default class CardList extends Component {
 
   updateMovies() {
     this.movieApiService
-      .getMovies("[eq")
+      .getMovies("whit")
       .then((movies) => this.setState({ movies, loading: false }))
       .catch((err) => {
         this.setState({
