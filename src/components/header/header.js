@@ -1,32 +1,51 @@
-import { useState } from "react";
+import { Component } from "react";
 import { Menu, Input, Space } from "antd";
 import "./header.css";
-const items = [
-  {
-    label: "Search",
-    key: "Search",
-  },
-  {
-    label: "Rated",
-    key: "Rated",
-  },
-];
-const Header = () => {
-  const [current, setCurrent] = useState("Search");
-  const onClick = (e) => {
-    console.log("click ", e);
-    setCurrent(e.key);
+
+export default class Header extends Component {
+  items = [
+    {
+      label: "Search",
+      key: "Search",
+    },
+    {
+      label: "Rated",
+      key: "Rated",
+    },
+  ];
+  state = {
+    current: "Search",
   };
-  return (
-    <Space className="header" direction="vertical" align="center" size="middle">
-      <Menu
-        onClick={onClick}
-        selectedKeys={[current]}
-        mode="horizontal"
-        items={items}
-      />
-      <Input className="header__search-input" placeholder="Type to search..." />
-    </Space>
-  );
-};
-export default Header;
+
+  setCurrent(newState) {
+    this.setState({ current: newState });
+  }
+
+  onClick = (e) => {
+    console.log("click ", e);
+    this.setCurrent(e.key);
+  };
+
+  render() {
+    return (
+      <Space
+        className="header"
+        direction="vertical"
+        align="center"
+        size="middle"
+      >
+        <Menu
+          onClick={this.onClick}
+          selectedKeys={[this.state.current]}
+          mode="horizontal"
+          items={this.items}
+        />
+        <Input
+          className="header__search-input"
+          placeholder="Type to search..."
+          onChange={(e) => console.log(e.target.value)}
+        />
+      </Space>
+    );
+  }
+}
