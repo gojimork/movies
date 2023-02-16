@@ -15,6 +15,7 @@ export default class Header extends Component {
   ];
   state = {
     current: "Search",
+    label: null,
   };
 
   setCurrent(newState) {
@@ -43,7 +44,7 @@ export default class Header extends Component {
         <Input
           className="header__search-input"
           placeholder="Type to search..."
-          onChange={(e) => console.log(e.target.value)}
+          onChange={this.props.onLabelChange}
         />
       </Space>
     );

@@ -16,14 +16,19 @@ export default class CardList extends Component {
     errorMessage: null,
   };
 
-  constructor() {
-    super();
-    this.updateMovies();
+  componentDidMount() {
+    this.updateMovies(this.props.request);
   }
 
-  updateMovies() {
+  componentDidUpdate(prevProps) {
+    if (this.props.request !== prevProps.request) {
+      this.updateMovies(this.props.request);
+    }
+  }
+
+  updateMovies(request) {
     this.movieApiService
-      .getMovies("whit")
+      .getMovies(request)
       .then((movies) => this.setState({ movies, loading: false }))
       .catch((err) => {
         this.setState({
