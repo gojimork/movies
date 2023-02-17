@@ -1,6 +1,6 @@
 export default class MovieApiService {
-  async getResource(quary) {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=c2a695c37503e6cbe4fa21a2c769151b&query=${quary}&page=1`;
+  async getResource(quary, page) {
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=c2a695c37503e6cbe4fa21a2c769151b&query=${quary}&page=${page}`;
     const res = await fetch(url);
     if (!res.ok) {
       throw new Error(
@@ -10,8 +10,8 @@ export default class MovieApiService {
     return await res.json();
   }
 
-  async getMovies(quary) {
-    const res = await this.getResource(quary);
+  async getMovies(quary, page) {
+    const res = await this.getResource(quary, page);
     if (!res.total_results) {
       throw new Error(`Movie "${quary}" is not a found`);
     }

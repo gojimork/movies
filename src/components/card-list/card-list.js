@@ -18,19 +18,20 @@ export default class CardList extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props.request !== prevProps.request) {
-      this.updateMovies(this.props.request);
+    const { request, page } = this.props;
+    if (request !== prevProps.request || page !== prevProps.page) {
+      this.updateMovies(request, page);
     }
   }
 
-  updateMovies(request) {
+  updateMovies(request, page) {
     if (!request) {
       this.setState({ emptyQuary: true });
       return;
     }
     this.setState({ loading: true, emptyQuary: false });
     this.movieApiService
-      .getMovies(request)
+      .getMovies(request, page)
       .then((movies) => this.setState({ movies, loading: false }))
       .catch((err) => {
         this.setState({
