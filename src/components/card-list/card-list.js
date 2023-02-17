@@ -11,14 +11,11 @@ export default class CardList extends Component {
   movieApiService = new MovieApiService();
   state = {
     movies: [],
-    loading: true,
+    loading: false,
     error: false,
     errorMessage: null,
+    emptyQuary: true,
   };
-
-  componentDidMount() {
-    this.updateMovies(this.props.request);
-  }
 
   componentDidUpdate(prevProps) {
     if (this.props.request !== prevProps.request) {
@@ -27,6 +24,11 @@ export default class CardList extends Component {
   }
 
   updateMovies(request) {
+    if (!request) {
+      this.setState({ emptyQuary: true });
+      return;
+    }
+    this.setState({ loading: true, emptyQuary: false });
     this.movieApiService
       .getMovies(request)
       .then((movies) => this.setState({ movies, loading: false }))
@@ -40,8 +42,8 @@ export default class CardList extends Component {
   }
 
   render() {
-    const { movies, loading, error, errorMessage } = this.state;
-    const hasData = !(error || loading);
+    const { movies, loading, error, errorMessage, emptyQuary } = this.state;
+    const hasData = !(error || loading || emptyQuary);
     const errorIndicator = error ? (
       <ErrorIndicator errorMessage={errorMessage} />
     ) : null;

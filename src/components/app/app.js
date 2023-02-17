@@ -7,15 +7,14 @@ import debounce from "lodash.debounce";
 
 export default class App extends Component {
   state = {
-    label: "go",
+    label: "",
   };
 
   updateQuary = (e) => {
     this.setState({ label: e.target.value });
-    console.log(1);
   };
 
-  debounceOnChange = debounce(this.updateQuary, 2000);
+  debounceOnChange = debounce(this.updateQuary, 500);
 
   render() {
     return (
