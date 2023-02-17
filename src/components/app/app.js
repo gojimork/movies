@@ -23,12 +23,14 @@ export default class App extends Component {
 
   render() {
     const { label, page } = this.state;
-    console.log(page);
+    const pagination = label ? (
+      <Pagination current={page} total={50} onChange={this.onPageChange} />
+    ) : null;
     return (
       <div className="app-wrap">
         <Header onLabelChange={this.debounceOnChange} />
         <CardList request={label} page={page} />
-        <Pagination current={page} total={50} onChange={this.onPageChange} />
+        {pagination}
       </div>
     );
   }
