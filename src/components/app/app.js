@@ -1,15 +1,25 @@
 import { Pagination } from "antd";
 import Header from "../header";
 import CardList from "../card-list";
+import MovieApiService from "../../services";
 import "./app.css";
 import { Component } from "react";
 import debounce from "lodash.debounce";
 
 export default class App extends Component {
+  movieApiService = new MovieApiService();
+
   state = {
     label: "",
     page: 1,
+    guestSessionId: null,
   };
+
+  componentDidMount() {
+    this.movieApiService
+      .guestSession()
+      .then((body) => this.setState({ guestSessionId: body.guest_session_id }));
+  }
 
   onPageChange = (e) => {
     this.setState({ page: e });
