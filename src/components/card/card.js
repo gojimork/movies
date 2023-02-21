@@ -1,10 +1,30 @@
 import { Image, Space, Typography, Button, Rate } from "antd";
 import { format } from "date-fns";
+import MovieApiService from "../../services";
 import "./card.css";
 
 const { Text } = Typography;
+const movieApiService = new MovieApiService();
 
-const Card = ({ title, poster, vote, release, description }) => {
+const onRateChange = (movieId, sessionId, rate) => {
+  movieApiService
+    .rateMovie(movieId, sessionId, rate)
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+    .then((body) => console.log(body));
+};
+
+const Card = ({
+  movieId,
+  title,
+  poster,
+  vote,
+  release,
+  description,
+  guestSessionId,
+}) => {
   return (
     <Space className="card" size={20}>
       <Image
@@ -26,7 +46,11 @@ const Card = ({ title, poster, vote, release, description }) => {
         <Text className="card__description" ellipsis={false}>
           {description}
         </Text>
-        <Rate allowHalf defaultValue={vote} count={10} />
+        <Rate
+          allowHalf
+          count={10}
+          onChange={(e) => onRateChange(movieId, guestSessionId, e)}
+        />
       </Space>
     </Space>
   );

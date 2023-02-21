@@ -32,14 +32,14 @@ export default class App extends Component {
   debounceOnChange = debounce(this.updateQuary, 500);
 
   render() {
-    const { label, page } = this.state;
+    const { label, page, guestSessionId } = this.state;
     const pagination = label ? (
       <Pagination current={page} total={50} onChange={this.onPageChange} />
     ) : null;
     return (
       <div className="app-wrap">
         <Header onLabelChange={this.debounceOnChange} />
-        <CardList request={label} page={page} />
+        <CardList request={label} page={page} guestSessionId={guestSessionId} />
         {pagination}
       </div>
     );

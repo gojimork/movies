@@ -52,11 +52,13 @@ export default class CardList extends Component {
     const cards = movies.map((movie) => (
       <li key={movie.id}>
         <Card
-          title={movie.original_title}
+          movieId={movie.id}
+          title={movie.title}
           poster={movie.poster_path}
           vote={movie.vote_average}
           release={movie.release_date}
           description={movie.overview}
+          guestSessionId={this.props.guestSessionId}
         />
       </li>
     ));
