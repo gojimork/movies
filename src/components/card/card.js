@@ -25,6 +25,8 @@ const Card = ({
   description,
   guestSessionId,
 }) => {
+  const color =
+    vote < 3 ? "very-bad" : vote < 5 ? "bad" : vote < 7 ? "normal" : "good";
   return (
     <Space className="card" size={20}>
       <Image
@@ -34,7 +36,7 @@ const Card = ({
       <Space className="card__body" direction="vertical" size="small">
         <div className="card__title-wrap">
           <h5 className="card__title">{title}</h5>
-          <span className="card__digital-rate">{vote}</span>
+          <span className={`card__digital-rate ${color}`}>{vote}</span>
         </div>
         <Text type="secondary">
           {release ? format(new Date(release), "d MMMM, y") : null}
