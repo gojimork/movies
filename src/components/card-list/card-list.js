@@ -55,7 +55,7 @@ export default class CardList extends Component {
           movieId={movie.id}
           title={movie.title}
           poster={movie.poster_path}
-          vote={movie.vote_average}
+          vote={movie.rating}
           release={movie.release_date}
           description={movie.overview}
           guestSessionId={this.props.guestSessionId}

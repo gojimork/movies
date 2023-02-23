@@ -15,26 +15,22 @@ export default class RatedList extends Component {
   getRatedMoveis() {
     const { guestSessionId } = this.props;
     if (!guestSessionId) return;
-    this.movieApiService
-      .getRatedMovie(guestSessionId)
-      .then((movies) => this.setState({ movies: movies.results }));
+    this.movieApiService.getRatedMovie(guestSessionId).then((movies) => {
+      console.log(movies.results);
+      this.setState({ movies: movies.results });
+    });
   }
 
   render() {
     const { movies } = this.state;
-    if (movies.length === 0)
-      return (
-        <button type="button" onClick={() => this.getRatedMoveis()}>
-          rated
-        </button>
-      );
+    if (movies.length === 0) return;
     const cards = movies.map((movie) => (
       <li key={movie.id}>
         <Card
           movieId={movie.id}
           title={movie.title}
           poster={movie.poster_path}
-          vote={movie.vote_average}
+          vote={movie.rating}
           release={movie.release_date}
           description={movie.overview}
           guestSessionId={this.props.guestSessionId}
