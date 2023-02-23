@@ -14,6 +14,12 @@ export default class MovieApiService {
     return fetch(url, postOption);
   }
 
+  async getRatedMovie(sessionId) {
+    const url = `${this.apiBase}/guest_session/${sessionId}/rated/movies?api_key=${this.apiKey}`;
+    const response = await fetch(url);
+    return response.json();
+  }
+
   async guestSession() {
     const url = `${this.apiBase}/authentication/guest_session/new?api_key=${this.apiKey}`;
     const response = await fetch(url);

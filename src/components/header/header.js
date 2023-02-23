@@ -23,11 +23,20 @@ export default class Header extends Component {
   }
 
   onClick = (e) => {
-    console.log("click ", e);
     this.setCurrent(e.key);
+    this.props.tabChange(e.key);
   };
 
   render() {
+    const { current } = this.state;
+    const input =
+      current === "Search" ? (
+        <Input
+          className="header__search-input"
+          placeholder="Type to search..."
+          onChange={this.props.onLabelChange}
+        />
+      ) : null;
     return (
       <Space
         className="header"
@@ -41,11 +50,7 @@ export default class Header extends Component {
           mode="horizontal"
           items={this.items}
         />
-        <Input
-          className="header__search-input"
-          placeholder="Type to search..."
-          onChange={this.props.onLabelChange}
-        />
+        {input}
       </Space>
     );
   }
