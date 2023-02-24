@@ -43,7 +43,7 @@ const Card = ({
           {release ? format(new Date(release), "d MMMM, y") : null}
         </Text>
 
-        <ul>{genres}</ul>
+        <ul className="genges-list">{genres}</ul>
         <Text className="card__description" ellipsis={false}>
           {description}
         </Text>

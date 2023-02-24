@@ -66,7 +66,9 @@ export default class CardList extends Component {
           <Consumer>
             {(genresBase) => {
               const genres = genre_ids.map((id) => (
-                <li key={id}>{genresBase[id]}</li>
+                <li className="genges-item" key={id}>
+                  {genresBase[id]}
+                </li>
               ));
 
               return (
