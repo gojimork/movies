@@ -1,4 +1,4 @@
-import { Image, Space, Typography, Button, Rate } from "antd";
+import { Image, Space, Typography, Rate } from "antd";
 import { format } from "date-fns";
 import MovieApiService from "../../services";
 import "./card.css";
@@ -24,6 +24,7 @@ const Card = ({
   release,
   description,
   guestSessionId,
+  genres,
 }) => {
   const color =
     vote < 3 ? "very-bad" : vote < 5 ? "bad" : vote < 7 ? "normal" : "good";
@@ -41,10 +42,8 @@ const Card = ({
         <Text type="secondary">
           {release ? format(new Date(release), "d MMMM, y") : null}
         </Text>
-        <Space>
-          <Button size="small">Action</Button>
-          <Button size="small">Drama</Button>
-        </Space>
+
+        <ul>{genres}</ul>
         <Text className="card__description" ellipsis={false}>
           {description}
         </Text>

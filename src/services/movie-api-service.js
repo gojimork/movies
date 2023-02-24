@@ -2,6 +2,18 @@ export default class MovieApiService {
   apiBase = "https://api.themoviedb.org/3";
   apiKey = "c2a695c37503e6cbe4fa21a2c769151b";
 
+  async getGenres() {
+    const url = `${this.apiBase}/genre/movie/list?api_key=${this.apiKey}`;
+    const response = await fetch(url);
+    const body = await response.json();
+    const arr = body.genres;
+    const object = arr.reduce(
+      (obj, item) => Object.assign(obj, { [item.id]: item.name }),
+      {}
+    );
+    return object;
+  }
+
   rateMovie(movieId, sessionId, rate) {
     const url = `${this.apiBase}/movie/${movieId}/rating?api_key=${this.apiKey}&guest_session_id=${sessionId}`;
     const postOption = {

@@ -6,6 +6,7 @@ import { Spin } from "antd";
 
 import MovieApiService from "../../services";
 import "./card-list.css";
+import { Consumer } from "../genres-contex";
 
 export default class CardList extends Component {
   movieApiService = new MovieApiService();
@@ -32,7 +33,9 @@ export default class CardList extends Component {
     this.setState({ loading: true, emptyQuary: false });
     this.movieApiService
       .getMovies(request, page)
-      .then((movies) => this.setState({ movies, loading: false }))
+      .then((movies) => {
+        this.setState({ movies, loading: false });
+      })
       .catch((err) => {
         this.setState({
           error: true,
@@ -49,19 +52,40 @@ export default class CardList extends Component {
       <ErrorIndicator errorMessage={errorMessage} />
     ) : null;
     const spin = loading ? <Spin /> : null;
-    const cards = movies.map((movie) => (
-      <li key={movie.id}>
-        <Card
-          movieId={movie.id}
-          title={movie.title}
-          poster={movie.poster_path}
-          vote={movie.rating}
-          release={movie.release_date}
-          description={movie.overview}
-          guestSessionId={this.props.guestSessionId}
-        />
-      </li>
-    ));
+    const cards = movies.map(
+      ({
+        id,
+        title,
+        poster_path,
+        rating,
+        release_date,
+        overview,
+        genre_ids,
+      }) => (
+        <li key={id}>
+          <Consumer>
+            {(genresBase) => {
+              const genres = genre_ids.map((id) => (
+                <li key={id}>{genresBase[id]}</li>
+              ));
+
+              return (
+                <Card
+                  movieId={id}
+                  title={title}
+                  poster={poster_path}
+                  vote={rating}
+                  release={release_date}
+                  description={overview}
+                  guestSessionId={this.props.guestSessionId}
+                  genres={genres}
+                />
+              );
+            }}
+          </Consumer>
+        </li>
+      )
+    );
     const content = hasData ? <ul className="card-list">{cards}</ul> : null;
 
     return (
