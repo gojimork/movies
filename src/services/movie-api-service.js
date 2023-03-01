@@ -54,6 +54,6 @@ export default class MovieApiService {
     if (!res.total_results) {
       throw new Error(`Movie "${quary}" is not a found`);
     }
-    return await res.results;
+    return await res;
   }
 }

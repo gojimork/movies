@@ -13,11 +13,11 @@ export default class RatedList extends Component {
   }
 
   getRatedMoveis() {
-    const { guestSessionId } = this.props;
+    const { guestSessionId, setTotalResults } = this.props;
     if (!guestSessionId) return;
-    this.movieApiService.getRatedMovie(guestSessionId).then((movies) => {
-      console.log(movies.results);
-      this.setState({ movies: movies.results });
+    this.movieApiService.getRatedMovie(guestSessionId).then((res) => {
+      this.setState({ movies: res.results });
+      setTotalResults(res.total_results);
     });
   }
 

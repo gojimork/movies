@@ -35,8 +35,11 @@ export default class CardList extends Component {
     this.setState({ loading: true, emptyQuary: false });
     this.movieApiService
       .getMovies(request, page)
-      .then((movies) => {
+      .then((res) => {
+        const movies = res.results;
         this.setState({ movies, loading: false });
+        const setTotalResults = res.total_results;
+        this.props.setTotalResults(setTotalResults);
       })
       .catch((err) => {
         this.setState({

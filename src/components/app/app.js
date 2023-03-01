@@ -16,6 +16,7 @@ export default class App extends Component {
     page: 1,
     guestSessionId: null,
     tab: "Search",
+    totalResults: 10,
   };
 
   componentDidMount() {
@@ -26,6 +27,10 @@ export default class App extends Component {
       .getGenres()
       .then((genresBase) => this.setState({ genresBase }));
   }
+
+  setTotalResults = (totalResults) => {
+    this.setState({ totalResults });
+  };
 
   tabChange = (value) => {
     this.setState({ tab: value });
@@ -42,15 +47,28 @@ export default class App extends Component {
   debounceOnChange = debounce(this.updateQuary, 500);
 
   render() {
-    const { label, page, guestSessionId, tab, genresBase } = this.state;
+    const { label, page, guestSessionId, tab, genresBase, totalResults } =
+      this.state;
     const cardList =
       tab === "Search" ? (
-        <CardList request={label} page={page} guestSessionId={guestSessionId} />
+        <CardList
+          request={label}
+          page={page}
+          guestSessionId={guestSessionId}
+          setTotalResults={this.setTotalResults}
+        />
       ) : (
-        <RatedList guestSessionId={guestSessionId} />
+        <RatedList
+          guestSessionId={guestSessionId}
+          setTotalResults={this.setTotalResults}
+        />
       );
     const pagination = label ? (
-      <Pagination current={page} total={50} onChange={this.onPageChange} />
+      <Pagination
+        current={page}
+        total={totalResults}
+        onChange={this.onPageChange}
+      />
     ) : null;
     return (
       <Provider value={genresBase}>
