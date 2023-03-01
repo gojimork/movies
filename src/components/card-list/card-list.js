@@ -21,6 +21,7 @@ export default class CardList extends Component {
   componentDidUpdate(prevProps) {
     const { request, page } = this.props;
     if (request !== prevProps.request || page !== prevProps.page) {
+      this.setState({ error: false });
       this.updateMovies(request, page);
     }
   }
@@ -30,6 +31,7 @@ export default class CardList extends Component {
       this.setState({ emptyQuary: true });
       return;
     }
+    console.log(request);
     this.setState({ loading: true, emptyQuary: false });
     this.movieApiService
       .getMovies(request, page)
